@@ -1,0 +1,60 @@
+# Tests
+
+## Test 1 - Create a scheduled task with a reminder [sanity]
+Viewport: mobile
+Covers: task creation, reminder selection, scheduled time, reminder indicator, persistence
+Description: Verifies a scheduled task can store a reminder independently from its scheduled time.
+Steps:
+1. Create a task named "Morning review" with a scheduled time of 08:00
+2. Set Reminder to 15 minutes before
+3. Save the task
+4. Refresh the page
+Expected: "Morning review" remains scheduled at 08:00 and shows a subtle reminder indicator.
+
+## Test 2 - Edit a reminder without changing duration or priority
+Viewport: desktop
+Covers: task editing, reminder update, duration continuity, priority continuity
+Description: Verifies changing a reminder on an existing task does not alter other scheduling metadata.
+Setup:
+1. Create a task named "Deep work" with Important priority, a 45-minute duration, and a scheduled time
+Steps:
+1. Open "Deep work" and change Reminder to 30 minutes before
+2. Save the task
+3. Reopen the task editor
+Expected: 30 minutes before is selected, the 45-minute duration remains, and Important priority remains selected.
+
+## Test 3 - Reminder is independent from scheduled time
+Viewport: desktop
+Covers: reminder/schedule separation, optional reminder state, no-reminder state
+Description: Verifies removing a reminder does not remove the task's scheduled time.
+Setup:
+1. Create a task named "Call supplier" with a scheduled time of 14:00 and a 15-minute reminder
+Steps:
+1. Edit "Call supplier"
+2. Set Reminder to None
+3. Save the task
+Expected: "Call supplier" remains scheduled for 14:00, the reminder indicator disappears, and no reminder is selected.
+
+## Test 4 - Recurring tasks retain reminder settings
+Viewport: desktop
+Covers: recurring task reminder, recurrence continuity, priority continuity, duration continuity
+Description: Verifies reminder metadata is retained on a recurring task while its existing recurrence behavior remains intact.
+Setup:
+1. Create a recurring task named "Daily review" with a scheduled time, Important priority, 30-minute duration, and a 15-minute reminder
+Steps:
+1. Open the task editor
+2. Verify the reminder is selected
+3. Save without changing recurrence
+Expected: The task remains recurring with the same priority, duration, scheduled time, and reminder setting.
+
+## Test 5 - Existing overdue and recurrence behavior remains intact
+Viewport: mobile
+Covers: overdue retention, minimizable Overdue section, recurrence stop, visible off-state knob, pending occurrence cleanup
+Description: Verifies the reminder feature does not regress existing overdue and recurrence behavior.
+Steps:
+1. Open a recurring task with a missed incomplete execution
+2. Verify Overdue appears above Today
+3. Collapse and expand Overdue
+4. Turn recurrence OFF in the task editor
+5. Save the stopped recurrence
+Expected: Overdue remains available and minimizable, the recurrence off-state knob remains visibly grey on the left, and pending future occurrences are removed without removing the overdue execution.
